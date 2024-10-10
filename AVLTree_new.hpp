@@ -41,6 +41,16 @@ class AVLTreeNew{
         return current;
     }
 
+    // Change 4: Remove redundant code by creating a function to calculate height
+    int get_height(NodeNew* node){
+       return (node == nullptr) ? 0 : node->height;
+    }
+
+    // Change 4: Remove redundant code by creating a function to calculate balance factor
+    int get_balance_factor(NodeNew* node){
+        return (node == nullptr) ? 0 : get_height(node->left) - get_height(node->right);
+    }
+
     void right_rotation(NodeNew*& parent) {
 
         // Store the left subtree
@@ -53,12 +63,9 @@ class AVLTreeNew{
         leftsubtree->right = parent;
         parent->left = T2;
 
-        // Update heights
-        parent->height = 1 + max((parent->left ? parent->left->height : 0), 
-                                (parent->right ? parent->right->height : 0));
-        
-        leftsubtree->height = 1 + max((leftsubtree->left ? leftsubtree->left->height : 0), 
-                                    (leftsubtree->right ? leftsubtree->right->height : 0));
+        // Update heights (Change 4: Use get_height() function)
+        parent->height = 1 + max(get_height(parent->left), get_height(parent->right));
+        leftsubtree->height = 1 + max(get_height(leftsubtree->left), get_height(leftsubtree->right));
 
         // Update parent to point to new root (leftsubtree)
         parent = leftsubtree;
@@ -78,12 +85,9 @@ class AVLTreeNew{
         rightsubtree->left = parent;
         parent->right = T2;
 
-        // Update heights
-        parent->height = 1 + max((parent->left ? parent->left->height : 0), 
-                                (parent->right ? parent->right->height : 0));
-        
-        rightsubtree->height = 1 + max((rightsubtree->left ? rightsubtree->left->height : 0), 
-                                    (rightsubtree->right ? rightsubtree->right->height : 0));
+        // Update heights (Change 4: Use get_height() function)
+        parent->height = 1 + max(get_height(parent->left), get_height(parent->right));
+        rightsubtree->height = 1 + max(get_height(rightsubtree->left), get_height(rightsubtree->right));
 
         // Update parent to point to new root (rightsubtree)
         parent = rightsubtree;
@@ -92,8 +96,8 @@ class AVLTreeNew{
 
     void insert_node(NodeNew*& node, int val){
         
-        // Change 3: If root is null, create new node
-        // Delete unnecessary insert() void
+        // Base case
+        // Delete unnecessary insert() void - change 3
         if(node == nullptr){
             node = new NodeNew(val);
             return;
@@ -137,26 +141,11 @@ class AVLTreeNew{
             return;
         }
 
-        // Update height
-        int left_height = 0;
-        int right_height = 0;
+        // Update height (Change 4: Use get_height() function - remove redundant code)
+        node->height = 1 + max(get_height(node->left), get_height(node->right));
 
-        if(node->left == nullptr){
-            left_height = 0;
-        } else {
-            left_height = node->left->height;
-        }
-
-        if(node->right == nullptr){
-            right_height = 0;
-        } else {
-            right_height = node->right->height;
-        }
-
-        node->height = 1 + max(left_height,right_height);
-
-        // Calculate balance factor
-        int bf = left_height - right_height;
+        // Calculate balance factor (Change 4: Use get_balance_factor() function)
+        int bf = get_balance_factor(node);
 
         // Determine which rotation and perform it if need be
         if(bf > 1){
@@ -195,13 +184,8 @@ class AVLTreeNew{
 
     void remove_node(NodeNew*& node, int val) {
         
-        // Change 3: Check if root is null
-        // Delete unneccssary remove() void
-        if(root == nullptr){
-            return;
-        }
-
         // Base case
+        // Delete unnecessary remove() void - change 3
         if (node == nullptr) {
             return;
         }
@@ -232,6 +216,7 @@ class AVLTreeNew{
                     node = temp;  // assign temp (one of the children) to node
                 }
             } 
+
             // NodeNew with two children
             else {
                 
@@ -251,34 +236,29 @@ class AVLTreeNew{
             return;
         }
 
-        // Update height of current node
-        int left_height = (node->left) ? node->left->height : 0;
-        int right_height = (node->right) ? node->right->height : 0;
-        node->height = 1 + max(left_height, right_height);
+        // Update height of current node (Change 4: Use get_height() function)
+        node->height = 1 + max(get_height(node->left), get_height(node->right));
 
-        // Calculate balance factor
-        int bf = left_height - right_height;
+        // Calculate balance factor (Change 4: Use get_balance_factor() function)
+        int bf = get_balance_factor(node);
 
         // Left-heavy case
         if (bf > 1) {
 
-            int left_left_height = (node->left->left) ? node->left->left->height : 0;
-            int left_right_height = (node->left->right) ? node->left->right->height : 0;
-
-            if (left_left_height - left_right_height >= 0) {
+            // Change 4: Remove redundant code by creating a function to calculate balance factor
+            if (get_balance_factor(node->left) >= 0) {
                 right_rotation(node);
             } else {
                 left_rotation(node->left);
                 right_rotation(node);
             }
         } 
+
         // Right-heavy case
         else if (bf < -1) {
 
-            int right_left_height = (node->right->left) ? node->right->left->height : 0;
-            int right_right_height = (node->right->right) ? node->right->right->height : 0;
-
-            if (right_left_height - right_right_height <= 0) {
+            // Change 4: Remove redundant code by creating a function to calculate balance factor
+            if (get_balance_factor(node->right) <= 0) {
                 left_rotation(node);
             } else {
                 right_rotation(node->right);

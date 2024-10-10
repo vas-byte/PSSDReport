@@ -60,7 +60,7 @@ void testLostParenthesis(T lp, bool is_refactored = false){
 template<typename T>
 void testAVLTree(T tree, bool is_refactored = false){
 
-    string refactored = is_refactored ? " Refactored" : "Old";
+    string refactored = is_refactored ? "Refactored" : "Old";
 
     // Test 1: Insert 5 elements - Display Inorder
     compare_output(tree.processInput("A1 A2 A3 A4 A5 IN"), 
