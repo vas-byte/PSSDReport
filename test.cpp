@@ -2,6 +2,7 @@
 #include "LostParenthesis_old.hpp"
 #include "LostParenthesis_new.hpp"
 #include "AVLTree_old.hpp"
+#include "AVLTree_new.hpp"
 #include <string>
 #include <assert.h>
 
@@ -176,14 +177,17 @@ void testAVLTree(T tree, bool is_refactored = false){
 
 int main(){
 
-    LostParenthesesOld lp_old;
-    testLostParenthesis(lp_old, false);
+    // LostParenthesesOld lp_old;
+    // testLostParenthesis(lp_old, false);
 
-    LostParenthesesNew lp_new;
-    testLostParenthesis(lp_new, true);
+    // LostParenthesesNew lp_new;
+    // testLostParenthesis(lp_new, true);
 
-    // AVLTreeOld tree_old;
-    // testAVLTree(tree_old, false);
+    AVLTreeOld tree_old;
+    testAVLTree(tree_old, false);
+
+    AVLTreeNew tree_new;
+    testAVLTree(tree_new, true);
     
     return 0;
 }
