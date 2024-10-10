@@ -11,27 +11,27 @@ class LostParenthesesNew{
 
     private:
 
-    // Change 3: Extract the code to update the total into a separate function
-    int updateTotal(int total, string& num, string op, bool minus){
+    // Change 3: Extract the code to update the minnimum into a separate function
+    int updateminnimum(int minnimum, string& num, string op, bool minus){
 
         if(op == "+" && !minus){
-            total += stoi(num);
+            minnimum += stoi(num);
         } else {
-            total -= stoi(num);
+            minnimum -= stoi(num);
         }
         
         // Change 2: clearing the num string is common to both cases
         // so we can move it outside the if-else block
         num.clear();
 
-        return total;
+        return minnimum;
     }
 
     public:
     int minResult(string e) {
 
         bool minus = false;
-        int total = 0;
+        int minnimum = 0;
         string num;
         string op = "+";
 
@@ -40,8 +40,8 @@ class LostParenthesesNew{
 
             if(e[i] == '+' || e[i] == '-') {
 
-                // Change 3: Update the total using a separate function
-                total = updateTotal(total, num, op, minus);
+                // Change 3: Update the minnimum (total) using a separate function
+                minnimum = updateminnimum(minnimum, num, op, minus);
 
                 // Change 4: Update the minus flag using the op variable
                 op = e[i];
@@ -57,10 +57,10 @@ class LostParenthesesNew{
 
         }
 
-        // Change 3: Update the total using a separate function
-        total = updateTotal(total, num, op, minus);
+        // Change 3: Update the minnimum (total) using a separate function
+        minnimum = updateminnimum(minnimum, num, op, minus);
 
-        return total;
+        return minnimum;
     }
 
 
