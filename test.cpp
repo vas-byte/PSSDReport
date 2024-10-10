@@ -1,5 +1,6 @@
 #include <iostream>
 #include "LostParenthesis_old.hpp"
+#include "LostParenthesis_new.hpp"
 #include "AVLTree_old.hpp"
 #include <string>
 #include <assert.h>
@@ -178,8 +179,11 @@ int main(){
     LostParenthesesOld lp_old;
     testLostParenthesis(lp_old, false);
 
-    AVLTreeOld tree_old;
-    testAVLTree(tree_old, false);
+    LostParenthesesNew lp_new;
+    testLostParenthesis(lp_new, true);
 
+    // AVLTreeOld tree_old;
+    // testAVLTree(tree_old, false);
+    
     return 0;
 }
