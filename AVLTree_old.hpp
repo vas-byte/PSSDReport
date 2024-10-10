@@ -23,7 +23,7 @@ class Node{
     }
 };  
 
-class AVLTree{
+class AVLTreeOld{
 
     private:    
 
@@ -351,7 +351,7 @@ class AVLTree{
 
     public:
 
-    AVLTree(){
+    AVLTreeOld(){
         root = nullptr;
     }
 

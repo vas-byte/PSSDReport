@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class LostParentheses{
+class LostParenthesesOld{
 
     public:
     int minResult(string e) {

@@ -25,7 +25,8 @@ void compare_output(T result, T expected, int test_num, string problem = ""){
 
 }
 
-void testLostParenthesis(LostParentheses lp){
+template<typename T>
+void testLostParenthesis(T lp){
 
     // Test 1: All positive numbers
     compare_output(lp.minResult("55+66+77+88+99"), 385, 1, "Lost Parenthesis");
@@ -53,7 +54,8 @@ void testLostParenthesis(LostParentheses lp){
 
 }
 
-void testAVLTree(AVLTree tree){
+template<typename T>
+void testAVLTree(T tree){
 
     // Test 1: Insert 5 elements - Display Inorder
     compare_output(tree.processInput("A1 A2 A3 A4 A5 IN"), string("1 2 3 4 5 "), 1, "AVL Tree");
@@ -150,10 +152,10 @@ void testAVLTree(AVLTree tree){
 
 int main(){
 
-    LostParentheses lp_old;
+    LostParenthesesOld lp_old;
     testLostParenthesis(lp_old);
 
-    AVLTree tree_old;
+    AVLTreeOld tree_old;
     testAVLTree(tree_old);
 
     return 0;
