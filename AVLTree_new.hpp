@@ -172,42 +172,28 @@ class AVLTreeOperations{
         // Calculate balance factor (Change 4: Use get_balance_factor() function)
         int bf = get_balance_factor(node);
 
-        // Determine which rotation and perform it if need be
-        if(bf > 1){
-            
-            // Right rotation
-            if(val < node->left->val){
-                
-                // Change 6: return the new root after the rotation
-                return right_rotation(node);
-            } 
-
-            // LR rotation
-            else {
-
-                // Change 6: return the new root after the rotation
-                node->left = left_rotation(node->left);
-                return right_rotation(node);
-            }
-
+        // Change 7 - removed nested if-else statements
+        
+        // Left Left Rotation
+        if (bf > 1 && val < node->left->val) {
+            return right_rotation(node);
         } 
         
-        else if (bf < -1){
+        // Left Right Rotation
+        if (bf > 1 && val >= node->left->val) {
+            node->left = left_rotation(node->left);
+            return right_rotation(node);
+        }
 
-            // Left Rotation
-            if(val > node->right->val){
+        // Right Right Rotation
+        if (bf < -1 && val > node->right->val) {
+            return left_rotation(node);
+        }
 
-                // Change 6: return the new root after the rotation
-                return left_rotation(node);
-            }
-            
-            // RL rotation
-            else {
-
-                // Change 6: return the new root after the rotation
-                node->right = right_rotation(node->right);
-                return left_rotation(node);
-            }
+        // Right Left Rotation
+        if (bf < -1 && val <= node->right->val) {
+            node->right = right_rotation(node->right);
+            return left_rotation(node);
         }
 
 
@@ -240,7 +226,7 @@ class AVLTreeOperations{
 
         }
 
-        // NodeNew to be deleted is found
+        // Node to be deleted is found
         else {
 
             // If node has one or no children
@@ -264,7 +250,7 @@ class AVLTreeOperations{
                 }
             } 
 
-            // NodeNew with two children
+            // Node with two children
             else {
                 
                 // Find the inorder successor (largest in left subtree)
@@ -293,37 +279,27 @@ class AVLTreeOperations{
         // Calculate balance factor (Change 4: Use get_balance_factor() function)
         int bf = get_balance_factor(node);
 
-        // Left-heavy case
-        if (bf > 1) {
-
-            // Change 4: Remove redundant code by creating a function to calculate balance factor
-            if (get_balance_factor(node->left) >= 0) {
-
-                // Change 6: return the new root after the rotation
-                return right_rotation(node);
-            } else {
-
-                // Change 6: return the new root after the rotation
-                node->left = left_rotation(node->left);
-                return right_rotation(node);
-            }
+        // Change 7 - removed nested if-else statements
+        //  Left Left Rotation
+        if (bf > 1 && get_balance_factor(node->left) >= 0) {
+            return right_rotation(node);
         } 
+        
+        // Left Right Rotation
+        if (bf > 1 && get_balance_factor(node->left) < 0) {
+            node->left = left_rotation(node->left);
+            return right_rotation(node);
+        }
 
-        // Right-heavy case
-        else if (bf < -1) {
+        // Right Right Rotation
+        if (bf < -1 && get_balance_factor(node->right) <= 0) {
+            return left_rotation(node);
+        }
 
-            // Change 4: Remove redundant code by creating a function to calculate balance factor
-            if (get_balance_factor(node->right) <= 0) {
-
-                // Change 6: return the new root after the rotation
-                return left_rotation(node);
-
-            } else {
-
-                // Change 6: return the new root after the rotation
-                node->right = right_rotation(node->right);
-                return left_rotation(node);
-            }
+        // Right Left Rotation
+        if (bf < -1 && get_balance_factor(node->right) > 0) {
+            node->right = right_rotation(node->right);
+            return left_rotation(node);
         }
 
         // Return the unchanged node (change 6)
