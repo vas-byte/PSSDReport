@@ -186,7 +186,7 @@ int main(){
     AVLTreeOld tree_old;
     testAVLTree(tree_old, false);
 
-    AVLTreeNew tree_new;
+    AVLTreeParser tree_new;
     testAVLTree(tree_new, true);
     
     return 0;
