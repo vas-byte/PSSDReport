@@ -124,7 +124,7 @@ void testAVLTree(T tree, bool is_refactored = false){
 
     tree.processInput("D1 D2 D3 D4");
 
-    // Test 12: Large input - Inorder
+    // Test 12: Large input - Inorder (Case where node with 2 children is deleted)
     string large_input = "D13 D60 D76 D12 A17 D98 A94 D70 D3 A23 A42 D45 A100 "
         "D50 A99 A22 A87 A4 A90 D88 A71 A20 D39 D83 A97 A56 D28 A9 D43 A19 D5 " 
         "A11 A54 A73 D54 A9 A24 A58 D6 D80 A72 A47 A82 A12 A75 D77 D84 D86 A60 D64 " 
@@ -177,11 +177,11 @@ void testAVLTree(T tree, bool is_refactored = false){
 
 int main(){
 
-    // LostParenthesesOld lp_old;
-    // testLostParenthesis(lp_old, false);
+    LostParenthesesOld lp_old;
+    testLostParenthesis(lp_old, false);
 
-    // LostParenthesesNew lp_new;
-    // testLostParenthesis(lp_new, true);
+    LostParenthesesNew lp_new;
+    testLostParenthesis(lp_new, true);
 
     AVLTreeOld tree_old;
     testAVLTree(tree_old, false);
